@@ -19,11 +19,9 @@ domain/    Pure Kotlin: models, Money, PriceCalculator  ← every price on scree
 data/      MenuRepository (Retrofit + in-memory cache), CartRepository, OrderRepository, DTO→domain mappers
 ```
 Unidirectional data flow. ViewModels expose one immutable `UiState` via `StateFlow`; screens render it.
-Manual DI (`AppContainer`) instead of Hilt — 3 repositories don't justify the annotation-processing cost
-  for a 4–6 hour scope. Swapping to Hilt later only touches `AppContainer` and the ViewModel factories.
-Money is `Long` cents everywhere; doubles from JSON are converted once at the mapper boundary.
+Manual DI (`AppContainer`) instead of Hilt — Swapping to Hilt later only touches `AppContainer` and the ViewModel factories.
 Cart / order repositories are singletons held by the container, so Menu, Detail and Cart share state and
-  the cart survives rotation. It resets when the process dies (explicitly allowed by the brief).
+  the cart survives rotation.
 
 ## Tests (`app/src/test`)
 `PriceCalculatorTest` — option math, the exact $9.40 / $2.50 / $0.75 / $12.65 scenario from the mock, quantity, empty cart, half-up rounding
@@ -36,7 +34,7 @@ Cart / order repositories are singletons held by the container, so Menu, Detail 
 
 Tools: ChatGPT (code assistance), GitHub Copilot (code suggestions and correction/solutions), Claude (review and documentation)
 
-Prompts (2–3 real ones):
+Prompts:
 1. help me understand the project requirements and divide the whole project developement into smaller task.
 2. implement the functionality while keeping the project structure unchanged 
 3. what is wrong in this code why it is giving error here. suggest a solution and explain it also 
